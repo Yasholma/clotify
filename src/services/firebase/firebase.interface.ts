@@ -6,3 +6,8 @@ export interface IFirebaseConfig {
   messagingSenderId: string;
   appId: string;
 }
+
+export interface IUserCredential {
+  email: string;
+  password: string;
+}

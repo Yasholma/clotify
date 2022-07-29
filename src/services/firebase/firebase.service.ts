@@ -4,9 +4,11 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   User,
+  signInWithRedirect,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { IFirebaseConfig } from "./firebase.interface";
+import { IFirebaseConfig, IUserCredential } from "./firebase.interface";
 
 const firebaseConfig: IFirebaseConfig = {
   apiKey: "AIzaSyAMXviTYSG3b8zIgqo5FZLbv-tItlg9aTo",
@@ -19,17 +21,23 @@ const firebaseConfig: IFirebaseConfig = {
 
 const firebaseApp: FirebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth: User) => {
+export const createUserDocumentFromAuth = async (
+  userAuth: User,
+  additionalInfo: Record<any, any> = {}
+) => {
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
@@ -42,6 +50,7 @@ export const createUserDocumentFromAuth = async (userAuth: User) => {
         displayName,
         email,
         createdAt,
+        ...additionalInfo,
       });
     } catch (e: any) {
       console.error(`error creating user: ${e.message}`);
@@ -49,6 +58,15 @@ export const createUserDocumentFromAuth = async (userAuth: User) => {
   }
 
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async ({
+  email,
+  password,
+}: IUserCredential) => {
+  if (!email || !password) return;
+
+  return createUserWithEmailAndPassword(auth, email, password);
 };
 
 export default firebaseApp;
