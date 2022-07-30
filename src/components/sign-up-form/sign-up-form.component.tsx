@@ -4,7 +4,6 @@ import {
   createUserDocumentFromAuth,
 } from "../../services/firebase/firebase.service";
 import Button from "../button/button.component";
-import { BUTTON_TYPE_CLASSES } from "../button/button.interface";
 import FormInput from "../form-input/form-input.component";
 
 import "./sign-up-form.styles.scss";
@@ -56,6 +55,7 @@ const SignUpForm = () => {
   return (
     <div className="sign-up-container">
       <h2>Sign Up with your email and password</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
@@ -97,9 +97,7 @@ const SignUpForm = () => {
           onChange={handlChange}
         />
 
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted} type="submit">
-          Sign Up
-        </Button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );

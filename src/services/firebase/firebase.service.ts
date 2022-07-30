@@ -6,6 +6,7 @@ import {
   User,
   signInWithRedirect,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { IFirebaseConfig, IUserCredential } from "./firebase.interface";
@@ -65,8 +66,15 @@ export const createAuthUserWithEmailAndPassword = async ({
   password,
 }: IUserCredential) => {
   if (!email || !password) return;
-
   return createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async ({
+  email,
+  password,
+}: IUserCredential) => {
+  if (!email || !password) return;
+  return signInWithEmailAndPassword(auth, email, password);
 };
 
 export default firebaseApp;
