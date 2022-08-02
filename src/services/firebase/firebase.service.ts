@@ -7,6 +7,9 @@ import {
   signInWithRedirect,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  NextOrObserver,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { IFirebaseConfig, IUserCredential } from "./firebase.interface";
@@ -76,5 +79,11 @@ export const signInAuthUserWithEmailAndPassword = async ({
   if (!email || !password) return;
   return signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangeListerner = (
+  callback: (value: any) => NextOrObserver<User> | void
+) => onAuthStateChanged(auth, callback);
 
 export default firebaseApp;

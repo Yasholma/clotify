@@ -1,6 +1,5 @@
 import { BaseSyntheticEvent, useState } from "react";
 import {
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../services/firebase/firebase.service";
@@ -23,8 +22,7 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      const res = await signInAuthUserWithEmailAndPassword({ email, password });
-      console.log(res);
+      await signInAuthUserWithEmailAndPassword({ email, password });
       setFormFields(defaultFormFields);
     } catch (error: any) {
       switch (error.code) {
@@ -46,8 +44,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   return (
