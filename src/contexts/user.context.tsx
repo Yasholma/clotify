@@ -7,7 +7,7 @@ import {
 
 export interface IUserContext {
   currentUser: User | null;
-  setCurrentUser: (user: User | null) => void;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -37,12 +37,10 @@ export const UserContextProvider: React.FC<UserContextProps> = ({
 
   return (
     <UserContext.Provider
-      value={
-        {
-          currentUser,
-          setCurrentUser,
-        } as any
-      }
+      value={{
+        currentUser,
+        setCurrentUser,
+      }}
     >
       {children}
     </UserContext.Provider>

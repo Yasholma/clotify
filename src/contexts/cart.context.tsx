@@ -1,5 +1,5 @@
 import { createContext, FC, useEffect, useState } from "react";
-import { IProduct } from "./product.context";
+import { IProduct } from "./category.context";
 
 export type ICartItem = IProduct & { quantity: number };
 
@@ -7,30 +7,26 @@ export type ICartItems = ICartItem[];
 
 export interface ICartContext {
   isCartOpen: boolean;
-  setIsCartOpen: (isCartOpen: boolean) => void;
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: ICartItems;
-  setCartItems: (cartItems: ICartItems) => void;
+  setCartItems: React.Dispatch<React.SetStateAction<ICartItems>>;
   addItemToCart: (productToAdd: IProduct) => void;
   removeItemFromCart: (cartItemToRemove: ICartItem) => void;
   cartCount: number;
-  setCartCount: () => void;
   clearItemFromCart: (cartItemToClear: ICartItem) => void;
   cartTotal: number;
-  setCartTotal: () => void;
 }
 
 export const CartContext = createContext<ICartContext>({
   isCartOpen: false,
-  setIsCartOpen: () => {},
+  setIsCartOpen: () => false,
   cartItems: [],
   setCartItems: () => {},
   addItemToCart: () => {},
   removeItemFromCart: () => {},
   cartCount: 0,
-  setCartCount: () => {},
   clearItemFromCart: () => {},
   cartTotal: 0,
-  setCartTotal: () => {},
 });
 
 const addCartItem = (
@@ -117,19 +113,17 @@ export const CartContextProvider: FC<CartContextProviderProps> = ({
 
   return (
     <CartContext.Provider
-      value={
-        {
-          isCartOpen,
-          setIsCartOpen,
-          cartItems,
-          setCartItems,
-          addItemToCart,
-          removeItemFromCart,
-          cartCount,
-          clearItemFromCart,
-          cartTotal,
-        } as any
-      }
+      value={{
+        isCartOpen,
+        setIsCartOpen,
+        cartItems,
+        setCartItems,
+        addItemToCart,
+        removeItemFromCart,
+        cartCount,
+        clearItemFromCart,
+        cartTotal,
+      }}
     >
       {children}
     </CartContext.Provider>

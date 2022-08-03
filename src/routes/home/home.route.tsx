@@ -1,10 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { ICategoryItem } from "../../components/category-item/category-item.interface";
+import { IDirectoryItem } from "../../components/directory-item/directory-item.interface";
 import Directory from "../../components/directory/directory.component";
 
 const Home: React.FunctionComponent = () => {
-  const categories: ICategoryItem[] = [
+  const directories: IDirectoryItem[] = [
     {
       id: 1,
       title: "hats",
@@ -35,7 +35,7 @@ const Home: React.FunctionComponent = () => {
   return (
     <>
       <Outlet />
-      <Directory categories={categories} />
+      <Directory directories={directories} />
     </>
   );
 };

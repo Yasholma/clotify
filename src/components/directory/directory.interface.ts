@@ -1,5 +1,5 @@
-import { ICategoryItem } from "../category-item/category-item.interface";
+import { IDirectoryItem } from "../directory-item/directory-item.interface";
 
 export interface DirectoryProps {
-  categories: ICategoryItem[];
+  directories: IDirectoryItem[];
 }
