@@ -73,7 +73,9 @@ const SignInForm = () => {
         />
 
         <div className="buttons-container">
-          <Button type="submit">Sign In</Button>
+          <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
+            Sign In
+          </Button>
 
           <Button
             type="button"

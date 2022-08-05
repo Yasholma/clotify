@@ -1,26 +1,17 @@
 import { FormInputProps } from "./form-input.interface";
 
-import "./form-input.styles.scss";
+import { FormInputLabel, Input, Group } from "./form-input.styles";
 
-const FormInput: React.FunctionComponent<FormInputProps> = ({
-  label,
-  id,
-  ...otherProps
-}) => {
+const FormInput: React.FC<FormInputProps> = ({ label, id, ...otherProps }) => {
   return (
-    <div className="group">
-      <input id={id} {...otherProps} className="form-input" />
+    <Group>
+      <Input id={id} {...otherProps} />
       {label && (
-        <label
-          htmlFor={id}
-          className={`form-input-label ${
-            (otherProps as any).value.length ? "shrink" : ""
-          }`}
-        >
+        <FormInputLabel htmlFor={id} shrink={(otherProps.value as any).length}>
           {label}
-        </label>
+        </FormInputLabel>
       )}
-    </div>
+    </Group>
   );
 };
 

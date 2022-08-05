@@ -4,6 +4,7 @@ import {
   createUserDocumentFromAuth,
 } from "../../services/firebase/firebase.service";
 import Button from "../button/button.component";
+import { BUTTON_TYPE_CLASSES } from "../button/button.interface";
 import FormInput from "../form-input/form-input.component";
 
 import "./sign-up-form.styles.scss";
@@ -97,7 +98,9 @@ const SignUpForm = () => {
           onChange={handlChange}
         />
 
-        <Button type="submit">Sign Up</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
+          Sign Up
+        </Button>
       </form>
     </div>
   );
